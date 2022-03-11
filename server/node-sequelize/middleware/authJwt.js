@@ -1,6 +1,6 @@
 
 const jwt = require('jsonwebtoken')
-const User = require('../models').User
+const users = require('../models').users
 const { secret } = require('../config/auth.config')
 
 verifyToken = (req, res, next) => {
@@ -21,64 +21,64 @@ verifyToken = (req, res, next) => {
     }) 
 }
 
-isAdmin = (req, res, next) => {
-    User.findByPk(req.userId).then(user=>{
-        user.getRoles().then(role=>{
-            for (let i=0; i < role.length ; i++){
-                if(role[i].name === "Admin"){
-                    next()
-                    return
-                }
-                res.status(403).send({
-                    message: "Require AdminRole"
-                })
-                return 
-            }
-        })
-    })
-}
+// isAdmin = (req, res, next) => {
+//     users.findByPk(req.userId).then(user=>{
+//         user.getRoles().then(role=>{
+//             for (let i=0; i < role.length ; i++){
+//                 if(role[i].name === "Admin"){
+//                     next()
+//                     return
+//                 }
+//                 res.status(403).send({
+//                     message: "Require AdminRole"
+//                 })
+//                 return 
+//             }
+//         })
+//     })
+// }
 
-isModerator = (req, res, next)=> {
-    User.findByPk(req.userId).then(user=>{
-        user.getRoles().then(role=>{
-            for(let i =0; i<role.length; i++){
-                if(role[i] === "moderator"){
-                    next()
-                    return
-                }
-                res.status(403).send({
-                    message : "Require User Role"
-                })
-                return
-            }
-        })
-    })
-}
+// isModerator = (req, res, next)=> {
+//     users.findByPk(req.userId).then(user=>{
+//         user.getRoles().then(role=>{
+//             for(let i =0; i<role.length; i++){
+//                 if(role[i] === "moderator"){
+//                     next()
+//                     return
+//                 }
+//                 res.status(403).send({
+//                     message : "Require User Role"
+//                 })
+//                 return
+//             }
+//         })
+//     })
+// }
 
-isModeratorOrAdmin = (req, res, next) =>{
-    User.findByPk(req.userId).then(user=>{
-        user.getRoles().then(role=>{
-            for(let i = 0; i < role.length; i++){
-                if(role[i] === "admin"){
-                    next()
-                    return
-                }
-                if(role[i] === "moderator"){
-                    next()
-                    return
-                }
-            }
-            return res.status(403).send({
-                message: "Require Admin or Moderator Role"
-            })
-        })
-    })
-}
+// isModeratorOrAdmin = (req, res, next) =>{
+//     users.findByPk(req.userId).then(user=>{
+//         user.getRoles().then(role=>{
+//             for(let i = 0; i < role.length; i++){
+//                 if(role[i] === "admin"){
+//                     next()
+//                     return
+//                 }
+//                 if(role[i] === "moderator"){
+//                     next()
+//                     return
+//                 }
+//             }
+//             return res.status(403).send({
+//                 message: "Require Admin or Moderator Role"
+//             })
+//         })
+//     })
+// }
 
 const authJwt = {
     verifyToken: verifyToken,
-    isAdmin : isAdmin,
-    isModerator: isModerator,
-    isModeratorOrAdmin: isModeratorOrAdmin
+    // isAdmin : isAdmin,
+    // isModerator: isModerator,
+    // isModeratorOrAdmin: isModeratorOrAdmin
 }
 module.exports = authJwt

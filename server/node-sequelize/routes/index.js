@@ -13,29 +13,26 @@ const {authJwt,verifySignUp} = require('../middleware')
 // });
 
 router.post('/api/v1/auth/signUp',
-    [
-      verifySignUp.checkDuplicateUsername,
-      verifySignUp.checkRoleExisted
-    ],
+    [verifySignUp.checkDuplicateUsername],
     controller.signUp
     )
     router.post('/api/v1/auth/signIn', controller.signIn)
   
   //signin routes 
   
-    router.get("/api/v1/test/all", userController.allAccess)
-    router.get("/api/v1/test/user",
-          [authJwt.verifyToken],
-          userController.userBoard
-    )
-    router.get("/api/v1/test/moderator", 
-          [authJwt.verifyToken, authJwt.isModerator],
-          userController.userModerator
-    )
-    router.get("/api/v1/test/admin", 
-          [authJwt.verifyToken, authJwt.isAdmin],
-          userController.adminBoard
-    )
+//     router.get("/api/v1/test/all", userController.allAccess)
+//     router.get("/api/v1/test/user",
+//           [authJwt.verifyToken],
+//           userController.userBoard
+//     )
+//     router.get("/api/v1/test/moderator", 
+//           [authJwt.verifyToken, authJwt.isModerator],
+//           userController.userModerator
+//     )
+//     router.get("/api/v1/test/admin", 
+//           [authJwt.verifyToken, authJwt.isAdmin],
+//           userController.adminBoard
+//     )
 
 
 
