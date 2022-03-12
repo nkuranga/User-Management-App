@@ -17,7 +17,7 @@ module.exports ={
             password: bcrypt.hashSync(req.body.password, 8)
         }).then((user)=> res.status(200).send({
             message: "Account Created"
-        })).catch((err)=> res.status(500).send({message: err.message}))
+        })).catch((err)=> res.status(400).send({message: err.message}))
     },
     //sign in function 
 // for users
